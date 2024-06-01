@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History and Tracking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .order {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .order:last-child {
+            border-bottom: none;
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .order-id {
+            font-weight: bold;
+        }
+        .order-date {
+            color: #888;
+        }
+        .order-details {
+            margin-top: 10px;
+        }
+        .tracking-info {
+            margin-top: 10px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .tracking-status {
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order History</h1>
+        
+        <div class="order">
+            <div class="order-header">
+                <span class="order-id">Order #12345</span>
+                <span class="order-date">Placed on: Khammam(Dis)<br>Konijerla(MD)<br>singarayapalem(V)<br>H.NO:2-57<br> 2024-06-10</span>
+            </div>
+            <div class="order-details">
+                <p>Items: Widget A, Widget B,widget C</p>
+                <p>Total: ₹50.00</p>
+            </div>
+            <div class="tracking-info">
+                <p class="tracking-status">Status: In Transit</p>
+                <p>Tracking Number: 1Z999AA10123456784</p>
+                <p>Estimated Delivery: 2024-06-17</p>
+            </div>
+        </div>
+        
+    </body>  
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<style>
+
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.payment-form {
+    max-width: 200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+
+input [type="text"],button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+</style>
+<body>
+    <h1>Checkout</h1>
+    <form id="payment-form">
+        <div id="card-element"><!-- A Stripe Element will be inserted here. -->
+            <input type="text" id="number"placeholder="Enter Card Number">
+            </div>
+        <button id="submit-button">Pay</button>
+        <div id="card-errors" role="alert"></div>
+    </form>
+
+    <script>
+        const stripe = Stripe('YOUR_PUBLIC_STRIPE_KEY');
+        const elements = stripe.elements();
+        const card = elements.create('card');
+        card.mount('#card-element');
+
+        const form = document.getElementById('payment-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const {paymentMethod, error} = await stripe.createPaymentMethod('card', card);
+
+            if (error) {
+                document.getElementById('card-errors').textContent = error.message;
+            } else {
+                // Send paymentMethod.id to your server to create a charge
+                fetch('/charge', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ payment_method_id: paymentMethod.id })
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.error) {
+                          document.getElementById('card-errors').textContent = data.error.message;
+                      } else {
+                          alert('Payment successful!');
+                      }
+                  });
+            }
+        });
+    </script>
+</body>
+</html>
