@@ -1,102 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    
-</head>
 
-<style>
-
-/* styles.css */
-body {
+    <style>
+        body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 .payment-form {
-    max-width: 200px;
-    margin: 0 auto;
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
 }
 
-h2 {
+.payment-form h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
     text-align: center;
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
+.form-group {
+    margin-bottom: 15px;
 }
 
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
 
-
-input [type="text"],button {
+.form-group input {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 button {
-    background-color: #007bff;
-    color: #fff;
+    width: 100%;
+    padding: 10px;
     border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
 
-</style>
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway Integration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
-    <h1>Checkout</h1>
-    <form id="payment-form">
-        <div id="card-element"><!-- A Stripe Element will be inserted here. -->
-            <input type="text" id="number"placeholder="Enter Card Number">
+    <div class="payment-form">
+        <h2>Payment Information</h2>
+        <form id="paymentForm">
+            <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" required>
             </div>
-        <button id="submit-button">Pay</button>
-        <div id="card-errors" role="alert"></div>
-    </form>
+            <div class="form-group">
+                <label for="expiryDate">Expiry Date</label>
+                <input type="text" id="expiryDate" placeholder="MM/YY" required>
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123" required>
+            </div>
+            <div class="form-group">
+                <label for="cardHolderName">Card Holder Name</label>
+                <input type="text" id="cardHolderName" placeholder="John Doe" required>
+            </div>
+            <button type="submit">Pay Now</button>
+        </form>
+    </div>
 
     <script>
-        const stripe = Stripe('YOUR_PUBLIC_STRIPE_KEY');
-        const elements = stripe.elements();
-        const card = elements.create('card');
-        card.mount('#card-element');
 
-        const form = document.getElementById('payment-form');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        let cardNumber = document.getElementById('cardNumber').value.trim();
+        let expiryDate = document.getElementById('expiryDate').value.trim();
+        let cvv = document.getElementById('cvv').value.trim();
+        let cardHolderName = document.getElementById('cardHolderName').value.trim();
+    
+        if (!validateCardDetails(cardNumber, expiryDate, cvv, cardHolderName)) {
+            alert('Please fill in all the fields correctly.');
+            return;
+        }
+    
+        // Simulate a payment processing call
+        alert('Payment Successful!');
+    });
+    
+    function validateCardDetails(cardNumber, expiryDate, cvv, cardHolderName) {
+        // Basic validation
+        const cardNumberRegex = /^\d{16}$/;
+        const expiryDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+        const cvvRegex = /^\d{3}$/;
+    
+        if (!cardNumberRegex.test(cardNumber)) {
+            alert('Please enter a valid card number.');
+            return false;
+        }
+    
+        if (!expiryDateRegex.test(expiryDate)) {
+            alert('Please enter a valid expiry date in MM/YY format.');
+            return false;
+        }
+    
+        if (!cvvRegex.test(cvv)) {
+            alert('Please enter a valid CVV.');
+            return false;
+        }
+    
+        if (cardHolderName === '') {
+            alert('Please enter the card holder name.');
+            return false;
+        }
+    
+        return true;
+    }
 
-            const {paymentMethod, error} = await stripe.createPaymentMethod('card', card);
-
-            if (error) {
-                document.getElementById('card-errors').textContent = error.message;
-            } else {
-                // Send paymentMethod.id to your server to create a charge
-                fetch('/charge', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ payment_method_id: paymentMethod.id })
-                }).then(response => response.json())
-                  .then(data => {
-                      if (data.error) {
-                          document.getElementById('card-errors').textContent = data.error.message;
-                      } else {
-                          alert('Payment successful!');
-                      }
-                  });
-            }
-        });
     </script>
 </body>
 </html>
