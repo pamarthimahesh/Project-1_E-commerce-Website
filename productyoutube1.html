@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details with Video and Add to Cart</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f4;
+    }
+    .product {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 20px;
+        width: 300px;
+        background-color: #fff;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .product img {
+        max-width: 100%;
+        height: auto;
+    }
+    .product h3 {
+        margin: 10px 0;
+    }
+    .product p {
+        color: #888;
+    }
+    .product button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .product button:hover {
+        background-color: #0056b3;
+    }
+    .product button.added {
+        background-color: #28a745;
+    }
+    #cart-message {
+        color: #28a745;
+        font-weight: bold;
+        display: none;
+        margin-top: 10px;
+    }
+    #videoModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+    #videoModal iframe {
+        width: 80%;
+        height: 80%;
+    }
+    #videoModal button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background-color: #ff0000;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    #videoModal button:hover {
+        background-color: #cc0000;
+    }
+
+    .product {
+    border: 1px solid #ddd;
+    padding: 16px;
+    text-align: center;
+    margin: 16px;
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+}
+
+.product h2 {
+    font-size: 24px;
+    margin: 16px 0;
+}
+
+.product p {
+    font-size: 20px;
+    color: #333;
+}
+
+.product button {
+    margin: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.CartMessage {
+    display: none;
+    color: green;
+    margin-top: 10px;
+}
+
+.video-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 60%;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    padding: 20px;
+    z-index: 1000;
+}
+
+.video-modal iframe {
+    width: 100%;
+    height: 80%;
+}
+
+.video-modal button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+    
+
+</style>
+</head>
+<body>
+
+<div class="product">
+    <img src="iphone.img" alt="Product Image">
+    <h3>Iphone 15</h3>
+    <p>$2999.99</p>
+    <button onclick="showVideo()">Details</button>
+    <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
+    <div id="cart-message">Item added to cart successfully!</div>
+</div>
+
+<div id="videoModal">
+    <button onclick="closeVideo()">Close</button>
+    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
+<div class="product">
+    <img src="shirt.img" alt="Product Image">
+    <h2>Navy Black Shirt</h2>
+    <p>$2999.99</p>
+    <button onclick="Video()"> Similar </button>
+    <button class="addToCart" onclick="addToCart(this)">AddToCart</button>
+    <div id="CartMessage">Item added to cart successfully!</div>
+</div>
+
+<div id="videoModel" class="videoModel">
+    <button onclick="closedVideo()">Close</button>
+    <iframe id="video Frame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+<script>
+    function showVideo() {
+        var videoModal = document.getElementById('videoModal');
+        var videoFrame = document.getElementById('videoFrame');
+        videoFrame.src = 'https://www.youtube.com/embed/kuOQdo7t3Xk';
+        videoModal.style.display = 'flex';
+    }
+
+    function closeVideo() {
+        var videoModal = document.getElementById('videoModal');
+        var videoFrame = document.getElementById('videoFrame');
+        videoFrame.src = '';
+        videoModal.style.display = 'none';
+    }
+
+    function addToCart(button) {
+        // Show the success message
+        var cartMessage = document.getElementById('cart-message');
+        cartMessage.style.display = 'block';
+
+        // Change the button color and text
+        button.classList.add('added');
+        button.textContent = 'Added';
+
+        // Hide the message after 2 seconds
+        setTimeout(function() {
+            cartMessage.style.display = 'none';
+        }, 2000);
+    }
+
+    function Video() {
+        var videoModel = document.getElementById('videoModel');
+        var video = document.getElementById('video');
+        video.src = 'https://www.youtube.com/embed/S8_YW-zw6Ug';
+        videoModel.style.display = 'flex';
+    }
+
+    function closerVideo() {
+        var videoModel = document.getElementById('videoModel');
+        var video = document.getElementById('video');
+        video.src = '';
+        videoModel.style.display = 'none';
+    }
+
+    function AddToCart(button) {
+        // Show the success message
+        var message = document.getElementById('message');
+        message.style.display = 'block';
+    }
+
+        // Change the button color and text
+        button.classlist.AddToCart('add');
+        button.textContent = 'Add';
+
+        // Hide the message after 2 seconds
+        setTimeout(function() {
+            message.style.display = 'none';
+        }, 2000);
+    
+
+    
+</script>
+
+</body>
+</html>
