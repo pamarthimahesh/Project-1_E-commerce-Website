@@ -91,7 +91,7 @@
 }
 
 .product img {
-    width: 100%;
+    width: 20%;
     height: auto;
 }
 
@@ -153,8 +153,8 @@
 <body>
 
 <div class="product">
-    <img src="iphone.img" alt="Product Image">
-    <h3>Iphone 15</h3>
+    <img src="C:/Users/mahes/Downloads/iphone14.img" alt="Product Image">
+    <h3>Iphone 14</h3>
     <p>$2999.99</p>
     <button onclick="showVideo()">Details</button>
     <button class="add-to-cart" onclick="addToCart(this)">Add to Cart</button>
@@ -171,12 +171,11 @@
     <img src="shirt.img" alt="Product Image">
     <h2>Navy Black Shirt</h2>
     <p>$2999.99</p>
-    <button onclick="Video()"> Similar </button>
+    <button onclick="Video()"> Details </button>
     <button class="addToCart" onclick="addToCart(this)">AddToCart</button>
-    <div id="CartMessage">Item added to cart successfully!</div>
 </div>
 
-<div id="videoModel" class="videoModel">
+<div id="videoModal" class="videoModal">
     <button onclick="closedVideo()">Close</button>
     <iframe id="video Frame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
@@ -198,12 +197,13 @@
 
     function addToCart(button) {
         // Show the success message
-        var cartMessage = document.getElementById('cart-message');
-        cartMessage.style.display = 'block';
+       // var cartMessage = document.getElementById('cart-message');
+        //cartMessage.style.display = 'block';
 
         // Change the button color and text
         button.classList.add('added');
         button.textContent = 'Added';
+        alert("Item added to cart successfully");
 
         // Hide the message after 2 seconds
         setTimeout(function() {
@@ -212,36 +212,19 @@
     }
 
     function Video() {
-        var videoModel = document.getElementById('videoModel');
-        var video = document.getElementById('video');
-        video.src = 'https://www.youtube.com/embed/S8_YW-zw6Ug';
-        videoModel.style.display = 'flex';
+        var videoModal = document.getElementById('videoModal');
+        var Framevideo = document.getElementById('videoFrame');
+        videoFrame.src = 'https://www.youtube.com/embed/xPDTllvbeOs';
+        videoModal.style.display = 'flex';
     }
 
-    function closerVideo() {
-        var videoModel = document.getElementById('videoModel');
-        var video = document.getElementById('video');
+    function closedVideo() {
+        var videoModal = document.getElementById('videoModal');
+        var videoFrame = document.getElementById('videoFrame');
         video.src = '';
-        videoModel.style.display = 'none';
+        videoModal.style.display = 'none';
     }
 
-    function AddToCart(button) {
-        // Show the success message
-        var message = document.getElementById('message');
-        message.style.display = 'block';
-    }
-
-        // Change the button color and text
-        button.classlist.AddToCart('add');
-        button.textContent = 'Add';
-
-        // Hide the message after 2 seconds
-        setTimeout(function() {
-            message.style.display = 'none';
-        }, 2000);
-    
-
-    
 </script>
 
 </body>
