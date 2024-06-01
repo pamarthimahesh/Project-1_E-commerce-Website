@@ -180,6 +180,21 @@
     <iframe id="video Frame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
+
+<div class="product">
+    <img src="watch.img" alt="Product Image">
+    <h2>Navy Black Shirt</h2>
+    <p>₹2999</p>
+    <button onclick="Videos()"> Details </button>
+    <button class="addToCart" onclick="addToCart(this)">AddToCart</button>
+</div>
+
+<div id="videoModal" class="videoModal">
+    <button onclick="closedVideos()">Close</button>
+    <iframe id="video Frame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+
 <script>
     function showVideo() {
         var videoModal = document.getElementById('videoModal');
@@ -224,6 +239,22 @@
         video.src = '';
         videoModal.style.display = 'none';
     }
+
+
+    function Videos() {
+        var videoModal = document.getElementById('videoModal');
+        var Framevideo = document.getElementById('videoFrame');
+        videoFrame.src = 'https://www.youtube.com/embed/NSnYTe_lRMU';
+        videoModal.style.display = 'flex';
+    }
+
+    function closedVideos() {
+        var videoModal = document.getElementById('videoModal');
+        var videoFrame = document.getElementById('videoFrame');
+        video.src = '';
+        videoModal.style.display = 'none';
+    }
+
 
 </script>
 
